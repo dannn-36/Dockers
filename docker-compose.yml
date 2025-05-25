@@ -1,0 +1,50 @@
+version: "3.8"
+
+services:
+  web:
+    build: ./web
+    container_name: web_station
+    ports:
+      - "8080:80"      # Apache
+      - "6081:6080"    # Web VNC
+      - "5901:5901"    # VNC
+    volumes:
+      - ./web/workspace:/workspace
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8
+    container_name: mysql_db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: devdb
+      MYSQL_USER: devuser
+      MYSQL_PASSWORD: devpass
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./web/mysql-data:/var/lib/mysql
+
+  mobile:
+    build: ./mobile
+    container_name: mobile_station
+    ports:
+      - "6082:6080"    # Web VNC
+      - "5902:5901"    # VNC
+      - "5554:5554"    # Android Emulator
+      - "5555:5555"    # Android Emulator
+      - "5037:5037"    # ADB
+    volumes:
+      - ./mobile/workspace:/home/ubuntu/workspace
+    devices:
+      - /dev/kvm:/dev/kvm   # Para aceleración KVM (si tu host lo soporta)
+
+  design:
+    build: ./design
+    container_name: design_station
+    ports:
+      - "6083:6080"    # Web VNC
+      - "5903:5901"    # VNC
+    volumes:
+      - ./design/workspace:/home/ubuntu/workspace
