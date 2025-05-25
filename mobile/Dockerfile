@@ -2,8 +2,14 @@ FROM dorowu/ubuntu-desktop-lxde-vnc
 
 RUN rm -f /etc/apt/sources.list.d/google-chrome.list
 RUN apt-get update && \
-    apt-get install -y openjdk-17-jdk wget unzip git qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils && \
+    apt-get install -y openjdk-17-jdk wget unzip git qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils libgl1-mesa-glx && \
     apt-get clean
+
+# Instala Android Studio
+RUN wget -O /tmp/android-studio.tar.gz https://redirector.gvt1.com/edgedl/android/studio/ide-zips/2022.3.1.21/android-studio-2022.3.1.21-linux.tar.gz && \
+    tar -xzf /tmp/android-studio.tar.gz -C /opt && \
+    rm /tmp/android-studio.tar.gz && \
+    ln -s /opt/android-studio/bin/studio.sh /usr/local/bin/android-studio
 
 # Instala Android SDK Command Line Tools
 ENV ANDROID_SDK_ROOT /opt/android-sdk
