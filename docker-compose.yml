@@ -7,7 +7,7 @@ services:
     ports:
       - "8080:80"      # Apache
       - "6081:6080"    # Web VNC
-      - "5901:5901"    # VNC
+      - "5901:5900"    # VNC
     volumes:
       - ./web/workspace:/workspace
     depends_on:
@@ -31,7 +31,7 @@ services:
     container_name: mobile_station
     ports:
       - "6082:6080"    # Web VNC
-      - "5902:5901"    # VNC
+      - "5902:5900"    # VNC
       - "5554:5554"    # Android Emulator
       - "5555:5555"    # Android Emulator
       - "5037:5037"    # ADB
@@ -45,6 +45,6 @@ services:
     container_name: design_station
     ports:
       - "6083:6080"    # Web VNC
-      - "5903:5901"    # VNC
+      - "5903:5900"    # VNC
     volumes:
       - ./design/workspace:/home/ubuntu/workspace

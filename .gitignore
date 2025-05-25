@@ -1,0 +1,13 @@
+# Ignora todos los archivos por defecto
+*
+
+# No ignores las carpetas (mantener estructura)
+!*/
+
+# Solo permite Dockerfile y docker-compose.yml
+!*/Dockerfile
+!docker-compose.yml
+
+# Permite también .gitignore y .gitattributes en la raíz
+!.gitignore
+!.gitattributes

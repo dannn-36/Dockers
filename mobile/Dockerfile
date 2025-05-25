@@ -1,7 +1,6 @@
 FROM dorowu/ubuntu-desktop-lxde-vnc
 
-# Instala dependencias básicas y herramientas de desarrollo
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 32EE5355A6BC6E42 || true
+RUN rm -f /etc/apt/sources.list.d/google-chrome.list
 RUN apt-get update && \
     apt-get install -y openjdk-17-jdk wget unzip git qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils && \
     apt-get clean
@@ -27,4 +26,4 @@ RUN echo "no" | avdmanager create avd -n test_avd -k "system-images;android-34;g
 # Expone puertos: 5901 (VNC), 6080 (web VNC), 5554/5555 (emulador), 5037 (ADB)
 EXPOSE 5901 6080 5554 5555 5037
 
-# El usuario podrá acceder al entorno gráfico LXDE y lanzar el emulador desde ahí vía VNC en el navegador (puerto 6080)
+# El entrypoint y el entorno de escritorio ya están configurados por la imagen base

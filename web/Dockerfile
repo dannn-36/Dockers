@@ -1,7 +1,6 @@
 FROM dorowu/ubuntu-desktop-lxde-vnc
 
-# Instala Apache, PHP 8 y utilidades necesarias
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 32EE5355A6BC6E42 || true
+RUN rm -f /etc/apt/sources.list.d/google-chrome.list
 RUN apt-get update && \
     apt-get install -y apache2 php php-mysql wget unzip && \
     apt-get clean
@@ -23,4 +22,5 @@ RUN mkdir -p /workspace
 WORKDIR /workspace
 
 # El entrypoint y el entorno de escritorio ya están configurados por la imagen base
-# El usuario podrá acceder a Eclipse desde el entorno LXDE vía VNC en el navegador (puerto 6080)
+
+RUN apt-get update && apt-get install -y phpmyadmin && apt-get clean
